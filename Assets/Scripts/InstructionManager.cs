@@ -19,9 +19,6 @@ public class InstructionManager : MonoBehaviour
     [Range(1, 5)]
     public int numInstructionsInQueue = 4;
 
-    [Tooltip("Position of active instruction in the UI")]
-    public Vector2 activeInstructionPosition;
-
     private const string InstructionManagerName = "Instruction Manager";
     private const string InstructionName = "Instruction #";
     private const string UpdateInstructionsMethodName = "UpdateInstructions";

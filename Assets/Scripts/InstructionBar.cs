@@ -3,10 +3,6 @@ using UnityEngine.UI;
 
 public class InstructionBar : MonoBehaviour
 {
-    [Tooltip("The number of active and future instructions to be displayed on screen at once")]
-    [Range(1, 5)]
-    public int numInstructionsOnScreen = 4;
-
     [Tooltip("Position of active instruction in the UI")]
     public Vector2 activeInstructionPosition;
 
