@@ -25,15 +25,20 @@ public class Control : MonoBehaviour {
 
 	private class InputNode
 	{
-		public InputNode(float continuousInterval, float timeDuration, bool reversed = false)
+		public InputNode(float continuousInterval, float timeDuration, float triggerPressDuration = 0.0f, bool reversed = false)
 		{
 			ContinuousInterval = continuousInterval;
 			TimeDuration = timeDuration;
 			Reversed = reversed;
+			TriggerPressDuration = triggerPressDuration;
         }
 
+		public float TriggerPressDuration;
 		public float TimeDuration;
 		public float ContinuousInterval;
+
+
+		public float InputPressDuration;
 		public float LastUpdateTime;
 		public bool Pressed;
 		public bool Reversed;
@@ -42,15 +47,15 @@ public class Control : MonoBehaviour {
 	// TODO: put this public
 	private Dictionary<Action, InputNode> Inputs = new Dictionary<Action, InputNode>()
 	{
-		{Action.North, new InputNode(0.0f, -1.0f)},
-		{Action.Northeast, new InputNode(0.0f, -1.0f) },
-		{Action.East, new InputNode(0.0f, -1.0f) },
-		{Action.Southeast, new InputNode(0.0f, -1.0f) },
-		{Action.South, new InputNode(0.0f, -1.0f) },
-		{Action.Southwest, new InputNode(0.0f, -1.0f) },
-		{Action.West, new InputNode(0.0f, -1.0f) },
-		{Action.Northwest, new InputNode(0.0f, -1.0f) },
-		{Action.Jump, new InputNode(0.0f, -1.0f, true) },
+		{Action.North, new InputNode(0.0f, 0.5f)},
+		{Action.Northeast, new InputNode(0.0f, 0.5f) },
+		{Action.East, new InputNode(0.0f, 0.5f) },
+		{Action.Southeast, new InputNode(0.0f, 0.5f) },
+		{Action.South, new InputNode(0.0f, 0.5f) },
+		{Action.Southwest, new InputNode(0.0f, 0.5f) },
+		{Action.West, new InputNode(0.0f, 0.5f) },
+		{Action.Northwest, new InputNode(0.0f, 0.5f) },
+		{Action.Jump, new InputNode(0.0f, 0f, 0.1f, true) },
 	};
 
 	private string inputConvert(Action input)
@@ -91,21 +96,30 @@ public class Control : MonoBehaviour {
 		foreach (Action key in keys)
 		{
 			InputNode inputNode = Inputs[key];
-			if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
-			{
-				// Check time
-				if ( Time.fixedTime - inputNode.LastUpdateTime > inputNode.ContinuousInterval)
+			if (!inputNode.Pressed) {
+				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
 				{
-					inputNode.LastUpdateTime = Time.fixedTime;
-					inputNode.Pressed = true;
+					// Check time
+					if (Time.fixedTime - inputNode.LastUpdateTime > inputNode.ContinuousInterval &&
+						inputNode.InputPressDuration > inputNode.TriggerPressDuration)
+					{
+						inputNode.InputPressDuration = 0.0f;
+						inputNode.LastUpdateTime = Time.fixedTime;
+						inputNode.Pressed = true;
+					} else
+					{
+						inputNode.InputPressDuration += Time.deltaTime;
+					}
+				} else
+				{
+					inputNode.InputPressDuration = 0.0f;
 				}
-				// Update the array data
-
 			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
 			{
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
 				{
+					inputNode.InputPressDuration = 0.0f;
 					inputNode.LastUpdateTime = Time.fixedTime;
 					inputNode.Pressed = false;
 				}
@@ -115,11 +129,6 @@ public class Control : MonoBehaviour {
 
 	public bool GetInput(Action input)
 	{
-		if (Inputs[input].Pressed)
-		{
-			Inputs[input].Pressed = false;
-			return true;
-        }
-		return false;
+		return Inputs[input].Pressed;
 	}
 }

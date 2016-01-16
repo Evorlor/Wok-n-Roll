@@ -10,13 +10,13 @@ public class Core : MonoBehaviour {
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
 
-	public float ScoreValue = 10.0f;
+	private float ScoreValue = 0.1f;
 	private float Score = 0.0f;
 
 	// Use this for initialization
 	void Start () {
 		// TODO: Testing
-		mRecipe = new RandomRecipe(1000);
+		mRecipe = new RandomRecipe(32768);
     }
 
 	// Update is called once per frame
@@ -38,8 +38,19 @@ public class Core : MonoBehaviour {
 
 			if (Control.GetInstance().GetInput(action))
 			{
+				if (action == Action.Jump)
+				{
+					for (int i = (int)Action.BEGIN + 1; i < (int)Action.SIZE; i++)
+					{
+						if (i == (int)Action.Jump)
+							continue;
+						if (Control.GetInstance().GetInput((Action)i))
+							return;
+					}
+				}
+
 				Score += ScoreValue;
-                started = nextStep();
+				started = nextStep();
 
 				Debug.Log(Score);
 			}
