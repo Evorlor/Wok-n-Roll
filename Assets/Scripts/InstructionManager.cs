@@ -99,5 +99,7 @@ public class InstructionManager : MonoBehaviour
         {
             activeInstructions[i] = GetRandomInstruction();
         }
+        FindObjectOfType<InstructionBar>().SendMessage(UpdateInstructionsMethodName);
+        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName);
     }
 }
