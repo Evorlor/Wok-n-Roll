@@ -2,16 +2,6 @@
 
 public class InstructionManager : MonoBehaviour
 {
-    void Update()
-    {
-        //if (Input.GetButtonDown(InputNames.North))
-        //{
-        //    Debug.Log("grewgr");
-        //    NextInstruction();
-        //}
-    }
-
-
     [Tooltip("All possible instructions")]
     public Instruction[] allInstructions;
 
@@ -22,6 +12,7 @@ public class InstructionManager : MonoBehaviour
     private const string InstructionManagerName = "Instruction Manager";
     private const string InstructionName = "Instruction #";
     private const string UpdateInstructionsMethodName = "UpdateInstructions";
+    private const string UpdateAnimationMethodName = "UpdateAnimation";
 
     private static InstructionManager instance;
     private Instruction[] activeInstructions;
@@ -75,7 +66,7 @@ public class InstructionManager : MonoBehaviour
     /// <summary>
     /// Gets the current instruction to be completed
     /// </summary>
-    public Instruction GetNextInstruction()
+    public Instruction GetCurrentInstruction()
     {
         return activeInstructions[0];
     }
@@ -91,8 +82,8 @@ public class InstructionManager : MonoBehaviour
             activeInstructions[i] = activeInstructions[i + 1];
         }
         activeInstructions[activeInstructions.Length - 1] = GetRandomInstruction();
-        var instructionBar = FindObjectOfType<InstructionBar>();
-        instructionBar.SendMessage(UpdateInstructionsMethodName);
+        FindObjectOfType<InstructionBar>().SendMessage(UpdateInstructionsMethodName);
+        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName);
     }
 
     private Instruction GetRandomInstruction()
