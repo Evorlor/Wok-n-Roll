@@ -13,7 +13,7 @@ public class Control : MonoBehaviour {
 
 	public enum INPUT
 	{
-		North = 0, Northeast, East, Southeast, South, Southwest, West, Northwest, Jump
+		BEGIN = 0, North, Northeast, East, Southeast, South, Southwest, West, Northwest, Jump, SIZE
 	}
 
 	private class InputNames
@@ -31,12 +31,14 @@ public class Control : MonoBehaviour {
 
 	private class InputNode
 	{
-		public InputNode(float timeDuration)
+		public InputNode(float continuousInterval, float timeDuration)
 		{
+			ContinuousInterval = continuousInterval;
 			TimeDuration = timeDuration;
         }
 
 		public float TimeDuration;
+		public float ContinuousInterval;
 		public float LastUpdateTime;
 		public bool Pressed;
 	}
@@ -44,15 +46,15 @@ public class Control : MonoBehaviour {
 	// TODO: put this public
 	private Dictionary<INPUT, InputNode> Inputs = new Dictionary<INPUT, InputNode>()
 	{
-		{INPUT.North, new InputNode(0.0f)},
-		{INPUT.Northeast, new InputNode(0.0f) },
-		{INPUT.East, new InputNode(0.0f) },
-		{INPUT.Southeast, new InputNode(0.0f) },
-		{INPUT.South, new InputNode(0.0f) },
-		{INPUT.Southwest, new InputNode(0.0f) },
-		{INPUT.West, new InputNode(0.0f) },
-		{INPUT.Northwest, new InputNode(0.0f) },
-		{INPUT.Jump, new InputNode(0.0f) },
+		{INPUT.North, new InputNode(0.0f, -1.0f)},
+		{INPUT.Northeast, new InputNode(0.0f, -1.0f) },
+		{INPUT.East, new InputNode(0.0f, -1.0f) },
+		{INPUT.Southeast, new InputNode(0.0f, -1.0f) },
+		{INPUT.South, new InputNode(0.0f, -1.0f) },
+		{INPUT.Southwest, new InputNode(0.0f, -1.0f) },
+		{INPUT.West, new InputNode(0.0f, -1.0f) },
+		{INPUT.Northwest, new InputNode(0.0f, -1.0f) },
+		{INPUT.Jump, new InputNode(0.0f, -1.0f) },
 	};
 
 	private string inputConvert(INPUT input)
@@ -92,16 +94,24 @@ public class Control : MonoBehaviour {
 		List<INPUT> keys = new List<INPUT>(Inputs.Keys);
 		foreach (INPUT key in keys)
 		{
+			InputNode inputNode = Inputs[key];
 			if (Input.GetButton(inputConvert(key)))
 			{
 				// Check time
-				InputNode inputNode = Inputs[key];
-                if ( Time.fixedTime - inputNode.LastUpdateTime > inputNode.TimeDuration)
+				if ( Time.fixedTime - inputNode.LastUpdateTime > inputNode.ContinuousInterval)
 				{
 					inputNode.LastUpdateTime = Time.fixedTime;
 					inputNode.Pressed = true;
-                }
+				}
 				// Update the array data
+
+			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
+			{
+				// Volatile 
+				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
+				{
+					inputNode.Pressed = false;
+				}
 			}
 		}
 	}
