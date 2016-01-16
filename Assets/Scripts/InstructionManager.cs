@@ -6,7 +6,7 @@ public class InstructionManager : MonoBehaviour
     public Instruction[] allInstructions;
 
     [Tooltip("The number of active and future instructions to be displayed on screen at once")]
-    [Range(1, 5)]
+    [Range(1, 100)]
     public int numInstructionsInQueue = 4;
 
     private const string InstructionManagerName = "Instruction Manager";
@@ -48,10 +48,6 @@ public class InstructionManager : MonoBehaviour
             Debug.LogError("At least one instruction must be added to the list of All Instructions!");
         }
         activeInstructions = new Instruction[numInstructionsInQueue];
-    }
-
-    void Start()
-    {
         InitializeInstructions();
     }
 
