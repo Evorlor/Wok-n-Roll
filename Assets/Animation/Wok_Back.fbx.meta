@@ -121,7 +121,7 @@ ModelImporter:
     3300002: pCylinder2
     4300000: Cube.005
     4300002: pCylinder2
-    7400000: Take 001
+    7400000: South
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -143,7 +143,145 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: South
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/ribs.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/finger_index.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/finger_index.01.L/finger_index.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/finger_index.01.L/finger_index.02.L/finger_index.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/finger_index.01.L/finger_index.02.L/finger_index.03.L/finger_index.03.L_end
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/thumb.01.L.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/thumb.01.L.001/thumb.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/thumb.01.L.001/thumb.01.L/thumb.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/thumb.01.L.001/thumb.01.L/thumb.02.L/thumb.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L.001/palm.01.L/thumb.01.L.001/thumb.01.L/thumb.02.L/thumb.03.L/thumb.03.L_end
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001/palm.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001/palm.02.L/finger_middle.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001/palm.02.L/finger_middle.01.L/finger_middle.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001/palm.02.L/finger_middle.01.L/finger_middle.02.L/finger_middle.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L.001/palm.02.L/finger_middle.01.L/finger_middle.02.L/finger_middle.03.L/finger_middle.03.L_end
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001/palm.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001/palm.03.L/finger_ring.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001/palm.03.L/finger_ring.01.L/finger_ring.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001/palm.03.L/finger_ring.01.L/finger_ring.02.L/finger_ring.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L.001/palm.03.L/finger_ring.01.L/finger_ring.02.L/finger_ring.03.L/finger_ring.03.L_end
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001/palm.04.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001/palm.04.L/finger_pinky.01.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001/palm.04.L/finger_pinky.01.L/finger_pinky.02.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001/palm.04.L/finger_pinky.01.L/finger_pinky.02.L/finger_pinky.03.L
+        weight: 1
+      - path: Armature/ribs.001/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.04.L.001/palm.04.L/finger_pinky.01.L/finger_pinky.02.L/finger_pinky.03.L/finger_pinky.03.L_end
+        weight: 1
+      - path: Cube.005
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/nurbsToPoly2
+        weight: 1
+      - path: group1/nurbsToPoly2/transform3
+        weight: 1
+      - path: group1/nurbsToPoly3
+        weight: 1
+      - path: group1/nurbsToPoly3/transform2
+        weight: 1
+      - path: group1/pCylinder2 1
+        weight: 1
+      - path: group1/pCylinder2 1/transform8
+        weight: 1
+      - path: group1/pCylinder3
+        weight: 1
+      - path: group1/pCylinder3/transform7
+        weight: 1
+      - path: group1/pCylinder4
+        weight: 1
+      - path: group1/pCylinder4/transform4
+        weight: 1
+      - path: group1/pSphere1
+        weight: 1
+      - path: group1/pSphere1/transform6
+        weight: 1
+      - path: group1/pSphere2
+        weight: 1
+      - path: group1/pSphere2/transform5
+        weight: 1
+      - path: group1/pTorus1
+        weight: 1
+      - path: group1/pTorus1/transform1
+        weight: 1
+      - path: pCylinder2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
