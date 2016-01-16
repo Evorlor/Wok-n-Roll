@@ -20,7 +20,7 @@ public class RandomRecipe : IRecipe
 	{
 		for (int i = 0; i < mNumSteps; i++)
 		{
-			steps.Add((Action)UnityEngine.Random.Range((int)Action.BEGIN, (int)Action.SIZE));
+			steps.Add((Action)UnityEngine.Random.Range((int)Action.Jump, (int)Action.Jump));
 		}
 	}
 

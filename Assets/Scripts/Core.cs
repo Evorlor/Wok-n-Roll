@@ -1,35 +1,82 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Core : MonoBehaviour {
 
 	private IRecipe mRecipe;
 	private bool started = true;
 
-	public float MaxScore = 100.0f;
-	private float score = 0.0f;
+	public float TimeToSkip = -1.0f;
+	private float timeDuration = 0.0f;
+
+	public float ScoreValue = 10.0f;
+	private float Score = 0.0f;
 
 	// Use this for initialization
 	void Start () {
 		// TODO: Testing
-		mRecipe = new RandomRecipe(3);
+		mRecipe = new RandomRecipe(1000);
     }
 
 	// Update is called once per frame
 	void Update () {
-		if (started)
+		if (started && mRecipe != null)
 		{
-			if (Control.GetInstance().GetInput(Action.North))
+			Action action = mRecipe.CurrentStep();
+			if (TimeToSkip >= 0.0f)
 			{
-				Debug.Log("North");
-			}
+				timeDuration += Time.deltaTime;
+				if (timeDuration >= TimeToSkip)
+				{
+					started = nextStep();
+                    return;
+				}
+            }
 
-			try
+			Debug.Log(action);
+
+			if (Control.GetInstance().GetInput(action))
 			{
-				Debug.Log(mRecipe.NextStep());
+				Score += ScoreValue;
+                started = nextStep();
+
+				Debug.Log(Score);
 			}
-			catch { }
 		}
+	}
+
+	public bool IsStarted()
+	{
+		return started;
+    }
+
+	private bool nextStep()
+	{
+		bool valid = true;
+		try
+		{
+			mRecipe.NextStep();
+		}
+		catch (InvalidOperationException)
+		{
+			valid = false;
+		}
+		return valid;
+	}
+
+	private bool preStep()
+	{
+		bool valid = true;
+		try
+		{
+			mRecipe.PreStep();
+		}
+		catch (InvalidOperationException)
+		{
+			valid = false;
+		}
+		return valid;
 	}
 
 	public void SetRecipe(IRecipe recipe)

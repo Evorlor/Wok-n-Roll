@@ -25,16 +25,18 @@ public class Control : MonoBehaviour {
 
 	private class InputNode
 	{
-		public InputNode(float continuousInterval, float timeDuration)
+		public InputNode(float continuousInterval, float timeDuration, bool reversed = false)
 		{
 			ContinuousInterval = continuousInterval;
 			TimeDuration = timeDuration;
+			Reversed = reversed;
         }
 
 		public float TimeDuration;
 		public float ContinuousInterval;
 		public float LastUpdateTime;
 		public bool Pressed;
+		public bool Reversed;
 	}
 
 	// TODO: put this public
@@ -48,7 +50,7 @@ public class Control : MonoBehaviour {
 		{Action.Southwest, new InputNode(0.0f, -1.0f) },
 		{Action.West, new InputNode(0.0f, -1.0f) },
 		{Action.Northwest, new InputNode(0.0f, -1.0f) },
-		{Action.Jump, new InputNode(0.0f, -1.0f) },
+		{Action.Jump, new InputNode(0.0f, -1.0f, true) },
 	};
 
 	private string inputConvert(Action input)
@@ -89,7 +91,7 @@ public class Control : MonoBehaviour {
 		foreach (Action key in keys)
 		{
 			InputNode inputNode = Inputs[key];
-			if (Input.GetButton(inputConvert(key)))
+			if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
 			{
 				// Check time
 				if ( Time.fixedTime - inputNode.LastUpdateTime > inputNode.ContinuousInterval)
@@ -104,6 +106,7 @@ public class Control : MonoBehaviour {
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
 				{
+					inputNode.LastUpdateTime = Time.fixedTime;
 					inputNode.Pressed = false;
 				}
 			}
