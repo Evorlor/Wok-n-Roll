@@ -13,7 +13,7 @@ public class InstructionBar : MonoBehaviour
 
     void Awake()
     {
-        instructionImages = new Image[InstructionManager.Instance.GetActiveInstructions().Length];
+        instructionImages = new Image[InstructionManager.Instance.numInstructionsInQueue];
         canvas = FindObjectOfType<Canvas>();
     }
 
@@ -27,6 +27,10 @@ public class InstructionBar : MonoBehaviour
     /// </summary>
     public void UpdateInstructions()
     {
+        if (instructionImages[0] == null)
+        {
+            return;
+        }
         var activeInstructions = InstructionManager.Instance.GetActiveInstructions();
         Destroy(instructionImages[0].gameObject);
         for (int i = 0; i < activeInstructions.Length - 1; i++)

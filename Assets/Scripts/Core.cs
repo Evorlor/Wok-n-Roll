@@ -16,7 +16,7 @@ public class Core : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// TODO: Testing
-		mRecipe = new RandomRecipe(32768);
+		mRecipe = new RandomRecipe();
     }
 
 	// Update is called once per frame
