@@ -4,7 +4,7 @@ using System.Collections;
 public class Core : MonoBehaviour {
 
 	private IRecipe mRecipe;
-	private bool started = false;
+	private bool started = true;
 
 	public float MaxScore = 100.0f;
 	private float score = 0.0f;
@@ -19,7 +19,7 @@ public class Core : MonoBehaviour {
 	void Update () {
 		if (started)
 		{
-			if (Control.GetInstance().GetInput(Control.INPUT.North))
+			if (Control.GetInstance().GetInput(Action.North))
 			{
 				Debug.Log("North");
 			}

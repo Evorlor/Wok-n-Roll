@@ -10,12 +10,6 @@ public class Control : MonoBehaviour {
 		return instance;
 	}
 
-
-	public enum INPUT
-	{
-		BEGIN = 0, North, Northeast, East, Southeast, South, Southwest, West, Northwest, Jump, SIZE
-	}
-
 	private class InputNames
 	{
 		public const string North = "North";
@@ -44,40 +38,40 @@ public class Control : MonoBehaviour {
 	}
 
 	// TODO: put this public
-	private Dictionary<INPUT, InputNode> Inputs = new Dictionary<INPUT, InputNode>()
+	private Dictionary<Action, InputNode> Inputs = new Dictionary<Action, InputNode>()
 	{
-		{INPUT.North, new InputNode(0.0f, -1.0f)},
-		{INPUT.Northeast, new InputNode(0.0f, -1.0f) },
-		{INPUT.East, new InputNode(0.0f, -1.0f) },
-		{INPUT.Southeast, new InputNode(0.0f, -1.0f) },
-		{INPUT.South, new InputNode(0.0f, -1.0f) },
-		{INPUT.Southwest, new InputNode(0.0f, -1.0f) },
-		{INPUT.West, new InputNode(0.0f, -1.0f) },
-		{INPUT.Northwest, new InputNode(0.0f, -1.0f) },
-		{INPUT.Jump, new InputNode(0.0f, -1.0f) },
+		{Action.North, new InputNode(0.0f, -1.0f)},
+		{Action.Northeast, new InputNode(0.0f, -1.0f) },
+		{Action.East, new InputNode(0.0f, -1.0f) },
+		{Action.Southeast, new InputNode(0.0f, -1.0f) },
+		{Action.South, new InputNode(0.0f, -1.0f) },
+		{Action.Southwest, new InputNode(0.0f, -1.0f) },
+		{Action.West, new InputNode(0.0f, -1.0f) },
+		{Action.Northwest, new InputNode(0.0f, -1.0f) },
+		{Action.Jump, new InputNode(0.0f, -1.0f) },
 	};
 
-	private string inputConvert(INPUT input)
+	private string inputConvert(Action input)
 	{
 		switch (input)
 		{
-			case INPUT.North:
+			case Action.North:
 				return InputNames.North;
-            case INPUT.Northeast:
+            case Action.Northeast:
 				return InputNames.Northeast;
-            case INPUT.East:
+            case Action.East:
 				return InputNames.East;
-            case INPUT.Southeast:
+            case Action.Southeast:
 				return InputNames.Southeast;
-			case INPUT.South:
+			case Action.South:
 				return InputNames.South;
-			case INPUT.Southwest:
+			case Action.Southwest:
 				return InputNames.Southwest;
-			case INPUT.West:
+			case Action.West:
 				return InputNames.West;
-			case INPUT.Northwest:
+			case Action.Northwest:
 				return InputNames.Northwest;
-			case INPUT.Jump:
+			case Action.Jump:
 				return InputNames.Jump;
 			default:
 				return string.Empty;
@@ -91,8 +85,8 @@ public class Control : MonoBehaviour {
 	void FixedUpdate () {
 
 		// Check button status
-		List<INPUT> keys = new List<INPUT>(Inputs.Keys);
-		foreach (INPUT key in keys)
+		List<Action> keys = new List<Action>(Inputs.Keys);
+		foreach (Action key in keys)
 		{
 			InputNode inputNode = Inputs[key];
 			if (Input.GetButton(inputConvert(key)))
@@ -116,7 +110,7 @@ public class Control : MonoBehaviour {
 		}
 	}
 
-	public bool GetInput(INPUT input)
+	public bool GetInput(Action input)
 	{
 		if (Inputs[input].Pressed)
 		{

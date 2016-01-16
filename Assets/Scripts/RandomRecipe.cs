@@ -5,13 +5,13 @@ using System;
 
 public class RandomRecipe : IRecipe
 {
-	private List<Control.INPUT> steps;
+	private List<Action> steps;
 	private int mNumSteps;
 	private int currentStep = 0;
 
 	public RandomRecipe(int numSteps)
 	{
-		steps = new List<Control.INPUT>();
+		steps = new List<Action>();
 		mNumSteps = numSteps;
         ranGen();
     }
@@ -20,11 +20,11 @@ public class RandomRecipe : IRecipe
 	{
 		for (int i = 0; i < mNumSteps; i++)
 		{
-			steps.Add((Control.INPUT)UnityEngine.Random.Range((int)Control.INPUT.BEGIN, (int)Control.INPUT.SIZE));
+			steps.Add((Action)UnityEngine.Random.Range((int)Action.BEGIN, (int)Action.SIZE));
 		}
 	}
 
-	public Control.INPUT NextStep()
+	public Action NextStep()
 	{
 		if (++currentStep >= mNumSteps)
 		{
@@ -36,7 +36,7 @@ public class RandomRecipe : IRecipe
 		return steps[currentStep];
     }
 
-	public Control.INPUT PreStep()
+	public Action PreStep()
 	{
 		if (--currentStep < 0)
 		{
@@ -48,7 +48,7 @@ public class RandomRecipe : IRecipe
 		return steps[currentStep];
 	}
 
-	public Control.INPUT CurrentStep()
+	public Action CurrentStep()
 	{
 		return steps[currentStep];
     }

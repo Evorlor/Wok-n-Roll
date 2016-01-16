@@ -4,11 +4,11 @@ public class InstructionManager : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetButtonDown(InputNames.North))
-        {
-            Debug.Log("grewgr");
-            NextInstruction();
-        }
+        //if (Input.GetButtonDown(InputNames.North))
+        //{
+        //    Debug.Log("grewgr");
+        //    NextInstruction();
+        //}
     }
 
 
