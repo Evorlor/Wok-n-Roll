@@ -4,6 +4,12 @@ using System;
 
 public class Core : MonoBehaviour {
 
+	private static Core instance;
+	public static Core GetInstance()
+	{
+		return instance;
+	}
+
 	private bool EnableShackingStyle = false;
 	private int ShackingTimes = 2;
 	private int currentShackingTime = 0;
@@ -11,16 +17,19 @@ public class Core : MonoBehaviour {
 	private bool debounced = false;
 
 	private IRecipe mRecipe;
-	private bool started = true;
+	private bool started = false;
 
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
 
 	private float ScoreValue = 0.1f;
-	private float Score = 0.0f;
+	public float Score = 0.0f;
 
 	// Use this for initialization
 	void Start () {
+
+		instance = this;
+
 		// TODO: Testing
 		mRecipe = new RandomRecipe();
     }
