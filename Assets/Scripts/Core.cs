@@ -21,8 +21,8 @@ public class Core : MonoBehaviour {
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
 
-	private float ScoreValue = 0.1f;
-	public float Score = 0.0f;
+	private int ScoreValue = 1;
+	public int Score = 0;
 
 	// Use this for initialization
 	void Start () {

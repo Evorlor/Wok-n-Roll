@@ -19,7 +19,7 @@ public class Game : MonoBehaviour {
 	void Update()
 	{
 		// TODO: Update the score
-		//Core.GetInstance().Score;
+		scoreText.text = Core.GetInstance().Score.ToString();
 
 		if (startTime > 0)
 		{
