@@ -71,7 +71,6 @@ public class Core : MonoBehaviour {
 							currentShackingTime = 0;
 							Score += ScoreValue;
 							started = nextStep();
-							Debug.Log(Score);
 						}
 					}
 				}
