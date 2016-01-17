@@ -6,7 +6,6 @@ public class Game : MonoBehaviour {
 
 	public Text scoreText;
 	public Text timerText;
-	private Canvas canvas;
     private GameOver gameOver;
 
 	public float StartTime = 100.0f;
@@ -18,7 +17,6 @@ public class Game : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-		canvas = FindObjectOfType<Canvas>();
         gameOver = FindObjectOfType<GameOver>();
 	}
 
@@ -62,7 +60,7 @@ public class Game : MonoBehaviour {
 
         timerText.text = timeStr;
 
-        bool isJumping = Control.GetInstance().GetInput(Action.Jump);
+        bool isJumping = Control.GetInstance().GetInput(Action.North);
 
         if (gameOver.IsGameOver() && isJumping){
             gameOver.SetGameOver(false);
