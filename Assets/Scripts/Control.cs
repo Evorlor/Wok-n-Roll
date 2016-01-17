@@ -176,6 +176,7 @@ public class Control : MonoBehaviour {
 		};
 	}
 
+
 	void FixedUpdate () {
 
 		// Check button status

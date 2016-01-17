@@ -21,7 +21,7 @@ public class Core : MonoBehaviour {
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
 
-	private int ScoreValue = 1;
+	private int ScoreValue = 0;
 	public int Score = 0;
 
     private float timeDelayed = 0.0f;
@@ -31,9 +31,13 @@ public class Core : MonoBehaviour {
 	void Start () {
 		instance = this;
     }
+    public void AddPoints(int points)
+    {
+        Score += points;
+    }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 		if (started && timeDelayed >= TimeToDelay)
 		{
             Action action = InstructionManager.Instance.GetCurrentInstruction().action;
@@ -71,7 +75,6 @@ public class Core : MonoBehaviour {
 						if ((currentShackingTime >= ShackingTimes) || !EnableShackingStyle)
 						{
 							currentShackingTime = 0;
-							Score += ScoreValue;
                             timeDelayed = 0.0f;
                             started = nextStep();
 						}
