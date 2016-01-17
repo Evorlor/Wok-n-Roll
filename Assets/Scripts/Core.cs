@@ -4,32 +4,37 @@ using System;
 
 public class Core : MonoBehaviour {
 
+	private static Core instance;
+	public static Core GetInstance()
+	{
+		return instance;
+	}
+
 	private bool EnableShackingStyle = false;
 	private int ShackingTimes = 2;
 	private int currentShackingTime = 0;
 
 	private bool debounced = false;
 
-	private IRecipe mRecipe;
 	private bool started = true;
 
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
 
-	private float ScoreValue = 0.1f;
-	private float Score = 0.0f;
+	private int ScoreValue = 1;
+	public int Score = 0;
 
 	// Use this for initialization
 	void Start () {
-		// TODO: Testing
-		mRecipe = new RandomRecipe();
+
+		instance = this;
     }
 
 	// Update is called once per frame
 	void Update () {
-		if (started && mRecipe != null)
+		if (started)
 		{
-			Action action = mRecipe.CurrentStep();
+			Action action = InstructionManager.Instance.GetCurrentInstruction().action;
 			if (TimeToSkip >= 0.0f)
 			{
 				timeDuration += Time.deltaTime;
@@ -66,7 +71,6 @@ public class Core : MonoBehaviour {
 							currentShackingTime = 0;
 							Score += ScoreValue;
 							started = nextStep();
-							Debug.Log(Score);
 						}
 					}
 				}
@@ -87,7 +91,7 @@ public class Core : MonoBehaviour {
 		bool valid = true;
 		try
 		{
-			mRecipe.NextStep();
+			InstructionManager.Instance.NextInstruction();
 		}
 		catch (InvalidOperationException)
 		{
@@ -95,25 +99,6 @@ public class Core : MonoBehaviour {
 		}
 		return valid;
 	}
-
-	private bool preStep()
-	{
-		bool valid = true;
-		try
-		{
-			mRecipe.PreStep();
-		}
-		catch (InvalidOperationException)
-		{
-			valid = false;
-		}
-		return valid;
-	}
-
-	public void SetRecipe(IRecipe recipe)
-	{
-		mRecipe = recipe;
-    }
 
 	public void StartCooking()
 	{

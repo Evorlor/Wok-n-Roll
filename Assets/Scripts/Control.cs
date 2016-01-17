@@ -5,6 +5,37 @@ using System.Collections.Generic;
 public class Control : MonoBehaviour {
 
 	private static Control instance = null;
+	public bool EnableAdditionalKeysChecking = true;
+
+	public float NorthVolatileTime = 0.05f;
+    public float NorthTriggerTime = 0.0f;
+
+	public float NortheastVolatileTime = 0.05f;
+	public float NortheastTriggerTime = 0.0f;
+
+	public float EastVolatileTime = 0.05f;
+	public float EastTriggerTime = 0.0f;
+
+	public float SoutheastVolatileTime = 0.05f;
+	public float SoutheastTriggerTime = 0.0f;
+
+	public float SouthVolatileTime = 0.05f;
+	public float SouthTriggerTime = 0.0f;
+
+	public float SouthwestVolatileTime = 0.05f;
+	public float SouthwestTriggerTime = 0.0f;
+
+	public float WestVolatileTime = 0.05f;
+	public float WestTriggerTime = 0.0f;
+
+	public float NorthwestVolatileTime = 0.05f;
+	public float NorthwestTriggerTime = 0.0f;
+
+	public float JumpVolatileTime = 0f;
+	public float JumpTriggerTime = 0.1f;
+
+
+
 	public static Control GetInstance()
 	{
 		return instance;
@@ -42,19 +73,7 @@ public class Control : MonoBehaviour {
 		public bool Reversed;
 	}
 
-	// TODO: put this public
-	private Dictionary<Action, InputNode> Inputs = new Dictionary<Action, InputNode>()
-	{
-		{Action.North, new InputNode(0.05f)},
-		{Action.Northeast, new InputNode(0.05f) },
-		{Action.East, new InputNode(0.05f) },
-		{Action.Southeast, new InputNode(0.05f) },
-		{Action.South, new InputNode(0.05f) },
-		{Action.Southwest, new InputNode(0.05f) },
-		{Action.West, new InputNode(0.05f) },
-		{Action.Northwest, new InputNode(0.05f) },
-		{Action.Jump, new InputNode(0f, 0.1f, true) },
-	};
+	private Dictionary<Action, InputNode> Inputs;
 
 	private string inputConvert(Action input)
 	{
@@ -83,9 +102,79 @@ public class Control : MonoBehaviour {
 		} 
 	}
 
+	private bool checkInput(Action key)
+	{
+		bool pressed = Input.GetButton(inputConvert(key));
+
+		if (!EnableAdditionalKeysChecking)
+		{
+			return pressed;
+        }
+
+		Action addtionalChecking1 = key;
+		Action addtionalChecking2 = key;
+
+		switch (key)
+		{
+			case Action.North:
+				addtionalChecking1 = Action.Northeast;
+				addtionalChecking2 = Action.Northwest;
+				break;
+            case Action.Northeast:
+				addtionalChecking1 = Action.North;
+				addtionalChecking2 = Action.East;
+				break;
+            case Action.East:
+				addtionalChecking1 = Action.Northeast;
+				addtionalChecking2 = Action.Southeast;
+				break;
+            case Action.Southeast:
+				addtionalChecking1 = Action.South;
+				addtionalChecking2 = Action.East;
+                break;
+            case Action.South:
+				addtionalChecking1 = Action.Southwest;
+				addtionalChecking2 = Action.Southeast;
+				break;
+            case Action.Southwest:
+				addtionalChecking1 = Action.West;
+				addtionalChecking2 = Action.South;
+				break;
+            case Action.West:
+				addtionalChecking1 = Action.Northwest;
+				addtionalChecking2 = Action.Southwest;
+				break;
+            case Action.Northwest:
+				addtionalChecking1 = Action.North;
+				addtionalChecking2 = Action.West;
+				break;
+            default:
+				break;
+		}
+
+		bool pressed1 = Input.GetButton(inputConvert(addtionalChecking1));
+		bool pressed2 = Input.GetButton(inputConvert(addtionalChecking2));
+
+
+		return (pressed || pressed1 || pressed2);
+    }
+
 	void Start () {
 		instance = this;
-    }
+
+		Inputs = new Dictionary<Action, InputNode>()
+		{
+			{Action.North, new InputNode(NorthVolatileTime, NorthTriggerTime)},
+			{Action.Northeast, new InputNode(NortheastVolatileTime, NortheastTriggerTime) },
+			{Action.East, new InputNode(EastVolatileTime, EastTriggerTime) },
+			{Action.Southeast, new InputNode(SoutheastVolatileTime, SoutheastTriggerTime) },
+			{Action.South, new InputNode(SouthVolatileTime, SouthTriggerTime) },
+			{Action.Southwest, new InputNode(SouthwestVolatileTime, SouthwestTriggerTime) },
+			{Action.West, new InputNode(WestVolatileTime, WestTriggerTime) },
+			{Action.Northwest, new InputNode(NorthwestVolatileTime, NorthwestTriggerTime) },
+			{Action.Jump, new InputNode(JumpVolatileTime, JumpTriggerTime, true) },
+		};
+	}
 
 	void FixedUpdate () {
 
@@ -95,7 +184,7 @@ public class Control : MonoBehaviour {
 		{
 			InputNode inputNode = Inputs[key];
 			if (!inputNode.Pressed) {
-				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
+				if (checkInput(key) ^ inputNode.Reversed)
 				{
 					// Check time
 					if (inputNode.InputPressDuration > inputNode.TriggerPressDuration)
@@ -113,7 +202,7 @@ public class Control : MonoBehaviour {
 				}
 			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
 			{
-				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
+				if (checkInput(key) ^ inputNode.Reversed)
 					continue;
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
