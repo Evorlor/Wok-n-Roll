@@ -4,6 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class InstructionAnimator : MonoBehaviour
 {
+    [Range(0, 1)]
+    public float chanceToBeAwesome = 0.5f;
     public AudioSource soundeffect;
     public GameObject target;
     public GameObject target2;
@@ -12,18 +14,24 @@ public class InstructionAnimator : MonoBehaviour
 
     private const string animationIntegerName = "Action";
 
+    private AudioSource superPlayer;
+    public AudioClip[] superSounds;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
         core = FindObjectOfType<Core>();
+        superPlayer = gameObject.AddComponent<AudioSource>();
     }
 
     void Start()
     {
         //animator.SetInteger(animationIntegerName, GetInstructionNumber());
+        target.SetActive(false);
+        target2.SetActive(false);
     }
 
-    
+
 
     /// <summary>
     /// Updates the instruction's animation in the center of the screen
@@ -35,9 +43,15 @@ public class InstructionAnimator : MonoBehaviour
         soundeffect.pitch = Random.Range(0.75f, 1.0f);
         //if (!soundeffect.isPlaying)
         //{
-            soundeffect.Play();
+        soundeffect.Play();
         //}
         int x = Random.Range(0, 2);
+        if (Random.Range(0.0f, 1.0f) <= chanceToBeAwesome && !superPlayer.isPlaying)
+        {
+            superPlayer.clip = superSounds[Random.Range(0, superSounds.Length)];
+
+            superPlayer.Play();
+        }
         switch (x)
         {
             case 0:
@@ -52,18 +66,7 @@ public class InstructionAnimator : MonoBehaviour
                 target.SetActive(false);
                 target2.SetActive(true);
                 core.AddPoints(50);
-                Debug.Log(x);
                 break;
-            //case 3:
-            //    target.SetActive(false);
-            //    target2.SetActive(true);
-            //    Debug.Log(x);
-            //    break;
-            //case 4:
-            //    target.SetActive(false);
-            //    target2.SetActive(true);
-            //    Debug.Log(x);
-            //    break;
             default: //print();
                 target.SetActive(false);
                 target2.SetActive(true);
