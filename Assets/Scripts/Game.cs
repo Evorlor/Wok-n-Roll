@@ -62,9 +62,9 @@ public class Game : MonoBehaviour {
 
         timerText.text = timeStr;
 
-        bool isJumping = Control.GetInstance().GetInput(Action.North);
+        bool isJumping = Control.GetInstance().GetInput(Action.Jump);
 
-      if (gameOver.IsGameOver() && isJumping){
+        if (gameOver.IsGameOver() && isJumping){
             gameOver.SetGameOver(false);
             gameOver.image.enabled = false;
             StartTime = defaultTime;
