@@ -202,8 +202,6 @@ public class Control : MonoBehaviour {
 				}
 			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
 			{
-				if (checkInput(key) ^ inputNode.Reversed)
-					continue;
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
 				{

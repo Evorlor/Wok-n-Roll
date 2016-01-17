@@ -24,17 +24,19 @@ public class Core : MonoBehaviour {
 	private int ScoreValue = 1;
 	public int Score = 0;
 
+    private float timeDelayed = 0.0f;
+    public float TimeToDelay = 0.5f;
+
 	// Use this for initialization
 	void Start () {
-
 		instance = this;
     }
 
 	// Update is called once per frame
 	void Update () {
-		if (started)
+		if (started && timeDelayed >= TimeToDelay)
 		{
-			Action action = InstructionManager.Instance.GetCurrentInstruction().action;
+            Action action = InstructionManager.Instance.GetCurrentInstruction().action;
 			if (TimeToSkip >= 0.0f)
 			{
 				timeDuration += Time.deltaTime;
@@ -70,7 +72,8 @@ public class Core : MonoBehaviour {
 						{
 							currentShackingTime = 0;
 							Score += ScoreValue;
-							started = nextStep();
+                            timeDelayed = 0.0f;
+                            started = nextStep();
 						}
 					}
 				}
@@ -78,7 +81,10 @@ public class Core : MonoBehaviour {
 			{
 				debounced = true;
             }
-		}
+		} else
+        {
+            timeDelayed += Time.deltaTime;
+        }
 	}
 
 	public bool IsStarted()
