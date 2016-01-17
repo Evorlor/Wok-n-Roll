@@ -4,7 +4,7 @@ using System;
 
 public class Core : MonoBehaviour {
 
-	private bool EnableShackingStyle = true;
+	private bool EnableShackingStyle = false;
 	private int ShackingTimes = 2;
 	private int currentShackingTime = 0;
 
