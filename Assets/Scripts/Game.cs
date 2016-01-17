@@ -7,11 +7,19 @@ public class Game : MonoBehaviour {
 	public Text scoreText;
 	public Text timerText;
 	private Canvas canvas;
+    private GameOver gameOver;
 
 	public float StartTime = 100.0f;
+    private float defaultTime = 0;
+
+        void Awake()
+    {
+        defaultTime = StartTime;
+    }
 	// Use this for initialization
 	void Start () {
 		canvas = FindObjectOfType<Canvas>();
+        gameOver = FindObjectOfType<GameOver>();
 	}
 
 	// Update is called once per frame
@@ -46,6 +54,24 @@ public class Game : MonoBehaviour {
 		else
 			timeStr += ":" + mmseconds;
 
-		timerText.text = timeStr;
-	}
+        if(minutes <= 0 && seconds <= 0 && mmseconds <= 0)
+        {
+            minutes = seconds = mmseconds = 0;
+            gameOver.SetGameOver(true);
+        }
+
+        timerText.text = timeStr;
+
+        bool isJumping = Control.GetInstance().GetInput(Action.Jump);
+
+        if (gameOver.IsGameOver() && isJumping){
+            gameOver.SetGameOver(false);
+            gameOver.image.enabled = false;
+            StartTime = defaultTime;
+            //minutes = 0;
+            //seconds = 5;
+            //mmseconds = 0;
+            Core.GetInstance().Score = 0;
+        }
+    }
 }
