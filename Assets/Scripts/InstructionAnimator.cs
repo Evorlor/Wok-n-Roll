@@ -34,9 +34,9 @@ public class InstructionAnimator : MonoBehaviour
         //animator.SetTrigger("" + (int)action);
         soundeffect.pitch = Random.Range(0.75f, 1.0f);
         //if (!soundeffect.isPlaying)
-        {
+        //{
             soundeffect.Play();
-        }
+        //}
         int x = Random.Range(0, 2);
         switch (x)
         {
