@@ -27,7 +27,7 @@ public class InstructionBar : MonoBehaviour
     /// </summary>
     public void UpdateInstructions()
     {
-        if (instructionImages[0] == null)
+        if (instructionImages == null || instructionImages[0] == null)
         {
             return;
         }
