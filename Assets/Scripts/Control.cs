@@ -6,6 +6,36 @@ public class Control : MonoBehaviour {
 
 	private static Control instance = null;
 	public bool EnableAdditionalKeysChecking = true;
+
+	public float NorthVolatileTime = 0.05f;
+    public float NorthTriggerTime = 0.0f;
+
+	public float NortheastVolatileTime = 0.05f;
+	public float NortheastTriggerTime = 0.0f;
+
+	public float EastVolatileTime = 0.05f;
+	public float EastTriggerTime = 0.0f;
+
+	public float SoutheastVolatileTime = 0.05f;
+	public float SoutheastTriggerTime = 0.0f;
+
+	public float SouthVolatileTime = 0.05f;
+	public float SouthTriggerTime = 0.0f;
+
+	public float SouthwestVolatileTime = 0.05f;
+	public float SouthwestTriggerTime = 0.0f;
+
+	public float WestVolatileTime = 0.05f;
+	public float WestTriggerTime = 0.0f;
+
+	public float NorthwestVolatileTime = 0.05f;
+	public float NorthwestTriggerTime = 0.0f;
+
+	public float JumpVolatileTime = 0f;
+	public float JumpTriggerTime = 0.1f;
+
+
+
 	public static Control GetInstance()
 	{
 		return instance;
@@ -43,19 +73,7 @@ public class Control : MonoBehaviour {
 		public bool Reversed;
 	}
 
-	// TODO: put this public
-	private Dictionary<Action, InputNode> Inputs = new Dictionary<Action, InputNode>()
-	{
-		{Action.North, new InputNode(0.05f)},
-		{Action.Northeast, new InputNode(0.05f) },
-		{Action.East, new InputNode(0.05f) },
-		{Action.Southeast, new InputNode(0.05f) },
-		{Action.South, new InputNode(0.05f) },
-		{Action.Southwest, new InputNode(0.05f) },
-		{Action.West, new InputNode(0.05f) },
-		{Action.Northwest, new InputNode(0.05f) },
-		{Action.Jump, new InputNode(0f, 0.1f, true) },
-	};
+	private Dictionary<Action, InputNode> Inputs;
 
 	private string inputConvert(Action input)
 	{
@@ -143,7 +161,20 @@ public class Control : MonoBehaviour {
 
 	void Start () {
 		instance = this;
-    }
+
+		Inputs = new Dictionary<Action, InputNode>()
+		{
+			{Action.North, new InputNode(NorthVolatileTime, NorthTriggerTime)},
+			{Action.Northeast, new InputNode(NortheastVolatileTime, NortheastTriggerTime) },
+			{Action.East, new InputNode(EastVolatileTime, EastTriggerTime) },
+			{Action.Southeast, new InputNode(SoutheastVolatileTime, SoutheastTriggerTime) },
+			{Action.South, new InputNode(SouthVolatileTime, SouthTriggerTime) },
+			{Action.Southwest, new InputNode(SouthwestVolatileTime, SouthwestTriggerTime) },
+			{Action.West, new InputNode(WestVolatileTime, WestTriggerTime) },
+			{Action.Northwest, new InputNode(NorthwestVolatileTime, NorthwestTriggerTime) },
+			{Action.Jump, new InputNode(JumpVolatileTime, JumpTriggerTime, true) },
+		};
+	}
 
 	void FixedUpdate () {
 
