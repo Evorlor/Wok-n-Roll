@@ -23,7 +23,7 @@ public class InstructionAnimator : MonoBehaviour
 
     /// <summary>
     /// Updates the instruction's animation in the center of the screen
-    /// </summary>
+    /// </summary>w
     public void UpdateAnimation(Action action)
     {
 
