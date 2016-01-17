@@ -8,18 +8,22 @@ public class InstructionAnimator : MonoBehaviour
     public GameObject target;
     public GameObject target2;
     private Animator animator;
+    private Core core;
 
     private const string animationIntegerName = "Action";
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        core = FindObjectOfType<Core>();
     }
 
     void Start()
     {
         //animator.SetInteger(animationIntegerName, GetInstructionNumber());
     }
+
+    
 
     /// <summary>
     /// Updates the instruction's animation in the center of the screen
@@ -33,32 +37,33 @@ public class InstructionAnimator : MonoBehaviour
         {
             soundeffect.Play();
         }
-        int x = Random.Range(1, 5);
+        int x = Random.Range(0, 2);
         switch (x)
         {
             case 0:
+
+                Debug.Log(x);
+                target.SetActive(true);
+                target2.SetActive(false);
+                core.AddPoints(25);
+                break;
+
             case 1:
-
-                Debug.Log(x);
-                target.SetActive(true);
-                target2.SetActive(false);
-                break;
-
-            case 2:
-                target.SetActive(true);
-                target2.SetActive(false);
-                Debug.Log(x);
-                break;
-            case 3:
                 target.SetActive(false);
                 target2.SetActive(true);
+                core.AddPoints(50);
                 Debug.Log(x);
                 break;
-            case 4:
-                target.SetActive(false);
-                target2.SetActive(true);
-                Debug.Log(x);
-                break;
+            //case 3:
+            //    target.SetActive(false);
+            //    target2.SetActive(true);
+            //    Debug.Log(x);
+            //    break;
+            //case 4:
+            //    target.SetActive(false);
+            //    target2.SetActive(true);
+            //    Debug.Log(x);
+            //    break;
             default: //print();
                 target.SetActive(false);
                 target2.SetActive(true);
