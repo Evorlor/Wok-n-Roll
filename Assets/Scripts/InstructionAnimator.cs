@@ -12,7 +12,7 @@ public class InstructionAnimator : MonoBehaviour
     public GameObject target;
     public GameObject target2;
 
-  
+
 
     void Awake()
     {
@@ -30,19 +30,23 @@ public class InstructionAnimator : MonoBehaviour
     /// </summary>
     public void UpdateAnimation(Action action)
     {
-        
+
         animator.SetTrigger("" + (int)action);
-        soundeffect.Play();
-        int x = Random.RandomRange(1, 5);
+        soundeffect.pitch = Random.Range(0.75f, 1.0f);
+        //if (!soundeffect.isPlaying)
+        {
+            soundeffect.Play();
+        }
+        int x = Random.Range(1, 5);
         switch (x)
         {
             case 0:
-            case 1: 
+            case 1:
 
                 Debug.Log(x);
                 target.SetActive(true);
                 target2.SetActive(false);
-           break;
+                break;
 
             case 2:
                 target.SetActive(true);
@@ -67,7 +71,7 @@ public class InstructionAnimator : MonoBehaviour
                 break;
         }
 
-      
+
         //animator.SetInteger(animationIntegerName, GetInstructionNumber());
     }
 
