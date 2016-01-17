@@ -6,7 +6,7 @@ public class InstructionBar : MonoBehaviour
     [Tooltip("Position of active instruction in the UI")]
     public Vector2 activeInstructionPosition;
 
-    private readonly Vector2 InstructionOffset = new Vector2(0, 300.0f);
+    private readonly Vector2 InstructionOffset = new Vector2(0, 125.0f);
 
     private Image[] instructionImages;
     private Canvas canvas;
@@ -27,7 +27,7 @@ public class InstructionBar : MonoBehaviour
     /// </summary>
     public void UpdateInstructions()
     {
-        if (instructionImages == null || instructionImages[0] == null)
+        if (instructionImages[0] == null)
         {
             return;
         }
@@ -51,7 +51,6 @@ public class InstructionBar : MonoBehaviour
         for (int i = 0; i < activeInstructions.Length; i++)
         {
             var instructionImage = new GameObject(activeInstructions[i].name).AddComponent<Image>();
-            instructionImage.transform.localScale *= 2;
             instructionImage.sprite = activeInstructions[i].sprite;
             instructionImage.transform.position = activeInstructionPosition + InstructionOffset * i;
             instructionImage.transform.SetParent(canvas.transform);
