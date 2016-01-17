@@ -32,9 +32,20 @@ public class Game : MonoBehaviour {
 		int minutes = (int)(StartTime / 60.0f);
 		int seconds = (int)(StartTime % 60.0f);
 
+		float fractionalPortion = StartTime - (float)System.Math.Truncate(StartTime);
+		int mmseconds = (int)(fractionalPortion * 100 % 60.0f);
+
+		string timeStr;
 		if (seconds < 10)
-			timerText.text = minutes + ":0" + seconds;
+			timeStr = minutes + ":0" + seconds;
 		else
-			timerText.text = minutes + ":" + seconds;
+			timeStr = minutes + ":" + seconds;
+
+		if (mmseconds < 10)
+			timeStr += ":0" + mmseconds;
+		else
+			timeStr += ":" + mmseconds;
+
+		timerText.text = timeStr;
 	}
 }
