@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Control : MonoBehaviour {
 
 	private static Control instance = null;
+	public bool EnableAdditionalKeysChecking = true;
 	public static Control GetInstance()
 	{
 		return instance;
@@ -83,6 +84,63 @@ public class Control : MonoBehaviour {
 		} 
 	}
 
+	private bool checkInput(Action key)
+	{
+		bool pressed = Input.GetButton(inputConvert(key));
+
+		if (!EnableAdditionalKeysChecking)
+		{
+			return pressed;
+        }
+
+		Action addtionalChecking1 = key;
+		Action addtionalChecking2 = key;
+
+		switch (key)
+		{
+			case Action.North:
+				addtionalChecking1 = Action.Northeast;
+				addtionalChecking2 = Action.Northwest;
+				break;
+            case Action.Northeast:
+				addtionalChecking1 = Action.North;
+				addtionalChecking2 = Action.East;
+				break;
+            case Action.East:
+				addtionalChecking1 = Action.Northeast;
+				addtionalChecking2 = Action.Southeast;
+				break;
+            case Action.Southeast:
+				addtionalChecking1 = Action.South;
+				addtionalChecking2 = Action.East;
+                break;
+            case Action.South:
+				addtionalChecking1 = Action.Southwest;
+				addtionalChecking2 = Action.Southeast;
+				break;
+            case Action.Southwest:
+				addtionalChecking1 = Action.West;
+				addtionalChecking2 = Action.South;
+				break;
+            case Action.West:
+				addtionalChecking1 = Action.Northwest;
+				addtionalChecking2 = Action.Southwest;
+				break;
+            case Action.Northwest:
+				addtionalChecking1 = Action.North;
+				addtionalChecking2 = Action.West;
+				break;
+            default:
+				break;
+		}
+
+		bool pressed1 = Input.GetButton(inputConvert(addtionalChecking1));
+		bool pressed2 = Input.GetButton(inputConvert(addtionalChecking2));
+
+
+		return (pressed || pressed1 || pressed2);
+    }
+
 	void Start () {
 		instance = this;
     }
@@ -95,7 +153,7 @@ public class Control : MonoBehaviour {
 		{
 			InputNode inputNode = Inputs[key];
 			if (!inputNode.Pressed) {
-				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
+				if (checkInput(key) ^ inputNode.Reversed)
 				{
 					// Check time
 					if (inputNode.InputPressDuration > inputNode.TriggerPressDuration)
@@ -113,7 +171,7 @@ public class Control : MonoBehaviour {
 				}
 			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
 			{
-				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
+				if (checkInput(key) ^ inputNode.Reversed)
 					continue;
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)

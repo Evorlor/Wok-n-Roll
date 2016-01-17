@@ -3,13 +3,17 @@ using System.Collections;
 
 public class Game : MonoBehaviour {
 
+	private Canvas canvas;
+
 	// Use this for initialization
 	void Start () {
-		Core.GetInstance().StartCooking();
-    }
+		canvas = FindObjectOfType<Canvas>();
+
+	}
 
 	// Update is called once per frame
 	void Update () {
-		Core.GetInstance().Score;
-    }
+		// TODO: Update the score
+		//Core.GetInstance().Score;
+	}
 }

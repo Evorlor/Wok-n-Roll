@@ -17,7 +17,7 @@ public class Core : MonoBehaviour {
 	private bool debounced = false;
 
 	private IRecipe mRecipe;
-	private bool started = false;
+	private bool started = true;
 
 	public float TimeToSkip = -1.0f;
 	private float timeDuration = 0.0f;
