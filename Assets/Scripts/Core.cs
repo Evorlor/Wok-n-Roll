@@ -39,8 +39,7 @@ public class Core : MonoBehaviour {
                     return;
 				}
             }
-
-			Debug.Log(action);
+            
 
 			if (Control.GetInstance().GetInput(action))
 			{

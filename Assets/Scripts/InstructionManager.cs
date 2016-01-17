@@ -72,6 +72,7 @@ public class InstructionManager : MonoBehaviour
     /// </summary>
     public void NextInstruction()
     {
+        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName, activeInstructions[0].action);
         Destroy(activeInstructions[0].gameObject);
         for (int i = 0; i < activeInstructions.Length - 1; i++)
         {
@@ -79,7 +80,6 @@ public class InstructionManager : MonoBehaviour
         }
         activeInstructions[activeInstructions.Length - 1] = GetRandomInstruction();
         FindObjectOfType<InstructionBar>().SendMessage(UpdateInstructionsMethodName);
-        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName);
     }
 
     private Instruction GetRandomInstruction()
@@ -96,6 +96,6 @@ public class InstructionManager : MonoBehaviour
             activeInstructions[i] = GetRandomInstruction();
         }
         FindObjectOfType<InstructionBar>().SendMessage(UpdateInstructionsMethodName);
-        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName);
+        FindObjectOfType<InstructionAnimator>().SendMessage(UpdateAnimationMethodName, activeInstructions[0].action);
     }
 }

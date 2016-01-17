@@ -15,15 +15,16 @@ public class InstructionAnimator : MonoBehaviour
 
     void Start()
     {
-        animator.SetInteger(animationIntegerName, GetInstructionNumber());
+        //animator.SetInteger(animationIntegerName, GetInstructionNumber());
     }
 
     /// <summary>
     /// Updates the instruction's animation in the center of the screen
     /// </summary>
-    public void UpdateAnimation()
+    public void UpdateAnimation(Action action)
     {
-        animator.SetInteger(animationIntegerName, GetInstructionNumber());
+        animator.SetTrigger("" + (int)action);
+        //animator.SetInteger(animationIntegerName, GetInstructionNumber());
     }
 
     private int GetInstructionNumber()
