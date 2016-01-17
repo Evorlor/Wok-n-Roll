@@ -16,7 +16,6 @@ public class Core : MonoBehaviour {
 
 	private bool debounced = false;
 
-	private IRecipe mRecipe;
 	private bool started = true;
 
 	public float TimeToSkip = -1.0f;
@@ -29,16 +28,13 @@ public class Core : MonoBehaviour {
 	void Start () {
 
 		instance = this;
-
-		// TODO: Testing
-		mRecipe = new RandomRecipe();
     }
 
 	// Update is called once per frame
 	void Update () {
-		if (started && mRecipe != null)
+		if (started)
 		{
-			Action action = mRecipe.CurrentStep();
+			Action action = InstructionManager.Instance.GetCurrentInstruction().action;
 			if (TimeToSkip >= 0.0f)
 			{
 				timeDuration += Time.deltaTime;
@@ -96,7 +92,7 @@ public class Core : MonoBehaviour {
 		bool valid = true;
 		try
 		{
-			mRecipe.NextStep();
+			InstructionManager.Instance.NextInstruction();
 		}
 		catch (InvalidOperationException)
 		{
@@ -104,25 +100,6 @@ public class Core : MonoBehaviour {
 		}
 		return valid;
 	}
-
-	private bool preStep()
-	{
-		bool valid = true;
-		try
-		{
-			mRecipe.PreStep();
-		}
-		catch (InvalidOperationException)
-		{
-			valid = false;
-		}
-		return valid;
-	}
-
-	public void SetRecipe(IRecipe recipe)
-	{
-		mRecipe = recipe;
-    }
 
 	public void StartCooking()
 	{
