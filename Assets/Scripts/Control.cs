@@ -25,9 +25,8 @@ public class Control : MonoBehaviour {
 
 	private class InputNode
 	{
-		public InputNode(float continuousInterval, float timeDuration, float triggerPressDuration = 0.0f, bool reversed = false)
+		public InputNode(float timeDuration, float triggerPressDuration = 0.0f, bool reversed = false)
 		{
-			ContinuousInterval = continuousInterval;
 			TimeDuration = timeDuration;
 			Reversed = reversed;
 			TriggerPressDuration = triggerPressDuration;
@@ -35,7 +34,6 @@ public class Control : MonoBehaviour {
 
 		public float TriggerPressDuration;
 		public float TimeDuration;
-		public float ContinuousInterval;
 
 
 		public float InputPressDuration;
@@ -47,15 +45,15 @@ public class Control : MonoBehaviour {
 	// TODO: put this public
 	private Dictionary<Action, InputNode> Inputs = new Dictionary<Action, InputNode>()
 	{
-		{Action.North, new InputNode(0.0f, 0.5f)},
-		{Action.Northeast, new InputNode(0.0f, 0.5f) },
-		{Action.East, new InputNode(0.0f, 0.5f) },
-		{Action.Southeast, new InputNode(0.0f, 0.5f) },
-		{Action.South, new InputNode(0.0f, 0.5f) },
-		{Action.Southwest, new InputNode(0.0f, 0.5f) },
-		{Action.West, new InputNode(0.0f, 0.5f) },
-		{Action.Northwest, new InputNode(0.0f, 0.5f) },
-		{Action.Jump, new InputNode(0.0f, 0f, 0.1f, true) },
+		{Action.North, new InputNode(0.05f)},
+		{Action.Northeast, new InputNode(0.05f) },
+		{Action.East, new InputNode(0.05f) },
+		{Action.Southeast, new InputNode(0.05f) },
+		{Action.South, new InputNode(0.05f) },
+		{Action.Southwest, new InputNode(0.05f) },
+		{Action.West, new InputNode(0.05f) },
+		{Action.Northwest, new InputNode(0.05f) },
+		{Action.Jump, new InputNode(0f, 0.1f, true) },
 	};
 
 	private string inputConvert(Action input)
@@ -100,8 +98,7 @@ public class Control : MonoBehaviour {
 				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
 				{
 					// Check time
-					if (Time.fixedTime - inputNode.LastUpdateTime > inputNode.ContinuousInterval &&
-						inputNode.InputPressDuration > inputNode.TriggerPressDuration)
+					if (inputNode.InputPressDuration > inputNode.TriggerPressDuration)
 					{
 						inputNode.InputPressDuration = 0.0f;
 						inputNode.LastUpdateTime = Time.fixedTime;
@@ -116,6 +113,8 @@ public class Control : MonoBehaviour {
 				}
 			} else if(inputNode.Pressed && inputNode.TimeDuration >= 0.0f)
 			{
+				if (Input.GetButton(inputConvert(key)) ^ inputNode.Reversed)
+					continue;
 				// Volatile 
 				if (inputNode.TimeDuration < Time.fixedTime - inputNode.LastUpdateTime)
 				{

@@ -4,6 +4,12 @@ using System;
 
 public class Core : MonoBehaviour {
 
+	private bool EnableShackingStyle = true;
+	private int ShackingTimes = 2;
+	private int currentShackingTime = 0;
+
+	private bool debounced = false;
+
 	private IRecipe mRecipe;
 	private bool started = true;
 
@@ -47,13 +53,28 @@ public class Core : MonoBehaviour {
 						if (Control.GetInstance().GetInput((Action)i))
 							return;
 					}
+
+					Score += ScoreValue;
+					started = nextStep();
 				}
-
-				Score += ScoreValue;
-				started = nextStep();
-
-				Debug.Log(Score);
-			}
+				else
+				{
+					if (debounced || !EnableShackingStyle) {
+						debounced = false;
+						currentShackingTime++;
+						if ((currentShackingTime >= ShackingTimes) || !EnableShackingStyle)
+						{
+							currentShackingTime = 0;
+							Score += ScoreValue;
+							started = nextStep();
+							Debug.Log(Score);
+						}
+					}
+				}
+			} else
+			{
+				debounced = true;
+            }
 		}
 	}
 
